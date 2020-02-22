@@ -41,3 +41,19 @@ html, body {
     font-size: 14px;
     font-family: sans-serif;
 }
+
+.modal {
+    border-radius: 15px;
+    position: absolute;
+    background: #fff;
+    width: 50%;
+    height: 50%;
+    left: 0;
+    transform: translateX(50%);
+    text-align: center;
+    top: 10%;
+    font-size: 12px;
+    padding: 2px;
+    box-sizing: border-box;
+    box-shadow: 0 0 14px 4px rgba(0,0,0,.42);
+}

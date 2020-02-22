@@ -1,7 +1,8 @@
 import {time} from './time.js'
 import {battery} from './battery.js'
+import {notes} from './notes.js'
 
-let modules = [time, battery]
+let modules = [time, battery, notes]
 
 export function chackAll(input, sys){
     let anwserfound = false

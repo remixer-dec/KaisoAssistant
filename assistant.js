@@ -2,6 +2,7 @@ import * as Emotions from './emotions.js'
 import * as SR from './recognition.js'
 import * as TTS from './synthesis.js'
 import * as MM from './modules/modulemanager.js'
+import * as Modals from './modal.js'
 import {locale} from './locale/locale.js'
 export let assistant = {
     init: function() {
@@ -21,7 +22,7 @@ export let assistant = {
         }
     },
     process: function(txt) {
-        if (!MM.chackAll(txt, {SR:SR, TTS:TTS, Emotions:Emotions})) {
+        if (!MM.chackAll(txt, {SR:SR, TTS:TTS, Emotions:Emotions, Modals: Modals})) {
             TTS.speak(locale.IDK)
         }
     }
