@@ -15,7 +15,6 @@ export let assistant = {
             Emotions.setFace(Emotions.faces.listening)
             let text = await SR.recognize().catch(e => {speechText.innerText = e; Emotions.setFace(Emotions.faces.annoyed)})
             if (text) {
-                speechText.innerText = text
                 Emotions.setFace(Emotions.faces.serious)
                 this.process(text.toLowerCase())
             }

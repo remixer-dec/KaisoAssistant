@@ -59,5 +59,61 @@ export let ru = {
         thankyou: /(Спасибо|Благодарю)/i,
         bye: /(Пока$|Прощай|До свидания)/i,
         whoareyou: /(Ты (кто|что)|(кто|что) ты)/i
+    },
+    ENTERTHEDATE: 'Когда назначить событие?',
+    ENTERTHETIME: 'Во сколько часов напомнить?',
+    ENTERTHETEXT: 'О чём напомнить?',
+    REMINDERSET: 'Напоминание установлено',
+    REMINDER: 'Напоминание ассистента',
+    remindercases: {
+        qanda: /(Напомни мне$|(Создай|Добавь) (событие|напомина(ние|лку)))/i,
+        allinone: /(Напомни|Создай напоминание)( мне)? (?<interval>через (минуту|[0-9]+ мину(т|ты|ту)|час|[0-9]+ час(а|ов)|день|[0-9]+ (день|дн(я|ей))|неделю|[0-9]+ недел(и|ь)|месяц|[0-9]+ месяц(ев|а)|год))?(?<date>сегодня|завтра|послезавтра|[0-9]+ [а-я]{3,8})?(?<time>( ?в )?([0-9]{1,2})?( |:)?([0-9]{1,2})?)(?<topic>.+)/i
+    },
+    dateParser(date) {
+        if (typeof date == "object") return date
+        let d = new Date()
+        let relatives = /((после)?завтра|сегодня|(поза)?вчера)/i
+        let relarr = ['позавчера', 'вчера', 'сегодня', 'завтра', 'послезавтра']
+        let found = false
+        if (relatives.test(date)) {
+            d.setDate(d.getDate() + (relarr.indexOf(date.match(relatives)[1]) - 2))
+            found = true
+        }
+        let exact = /([0-9]{1,2}) (января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря)/i
+        let exactarr = 'января|февраля|марта|апреля|мая|июня|июля|августа|сентября|октября|ноября|декабря'.split('|')
+        if (exact.test(date)) {
+            d.setDate(parseInt(date.match(exact)[1]))
+            d.setMonth(exactarr.indexOf(date.match(exact)[2]))
+            found = true
+        }
+        let intervalic = /через ([0-9]+)? ?((?<day>дн(я|ей)|день)|(?<week>недел(ю|и|ь))|(?<month>меся(ц|цев|ца))|(?<year>(год|лет)))/i
+        if (intervalic.test(date)) {
+            let match = date.match(intervalic)
+            let intervals = {year: 365, month: 30, week: 7, day: 1}
+            let intervalunit = intervals[Object.entries(match.groups).filter(x => x[1] != undefined)[0][0]]
+            let interval = match[1] ? parseInt(match[1]) : 1
+            d.setDate(d.getDate() + interval * intervalunit)
+            found = true
+        }
+        return found ? d : false
+    },
+    timeunits: /час|минут/,
+    timeParser(time, date){
+        let exact = /в? ?(?<hours>[0-9]{1,2})( часов)?( |:)?(?<minutes>[0-9]{1,2})?/i
+        let intervalic = /через ([0-9]+)? ?((?<minutes>мину(т|ты|ту))|(?<hours>ча(с|са|сов)))/i
+        if (exact.test(time)) {
+            let match = time.match(exact)
+            date.setHours(parseInt(match.groups.hours))
+            date.setMinutes(match.groups.minutes ? match.groups.minutes : 0)
+        } else if (intervalic.test(time)) {
+            let amatch = time.match(intervalic)
+            let intervals = {minutes: 1, hours: 60}
+            let intervalunit = intervals[Object.entries(amatch.groups).filter(x=>x[1] != undefined)[0][0]]
+            let interval = amatch[1] ? parseInt(amatch[1]) : 1
+            date.setMinutes(date.getMinutes() + interval * intervalunit)
+        } else {
+            return date
+        }
+        return date
     }
 }

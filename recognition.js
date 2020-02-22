@@ -29,7 +29,9 @@ export async function recognize(words) {
             globalRecognition.onspeechend = () => globalRecognition.stop()
             globalRecognition.onend = () => isStarted = false
             globalRecognition.onresult = function(event) {
-                rs(Array.from(event.results[0]).sort((a, b) => a.confidence < b.confidence ? 1 : -1)[0].transcript)
+                let text = Array.from(event.results[0]).sort((a, b) => a.confidence < b.confidence ? 1 : -1)[0].transcript
+                speechText.innerText = text
+                rs(text)
             }
         })
     } else {

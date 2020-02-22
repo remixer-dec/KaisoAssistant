@@ -1,6 +1,5 @@
 import {AModule} from './amodule.js'
 import {locale} from '../locale/locale.js'
-import {default as Tools} from '../tools.js'
 let cases = Object.values(locale.basiccases)
 export let basicanswers = new AModule(cases, async (input, sys) => {
     switch (true) {
