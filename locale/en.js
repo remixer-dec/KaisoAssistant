@@ -21,5 +21,17 @@ export let en = {
         read: /((Please )?(Read|Voice) (a |the )?note (number )?[0-9]+)/i,
         show: /((Please )?(Show( me)?|Display) (a |the )?note (number )?[0-9]+)/i,
         delete: /((Please )?(Delete|Remove|Destroy|Get rid of) (a |the )?note (number )?[0-9]+)/i,
+    },
+    HELLO: 'Hello there',
+    FINE: 'Im fine',
+    THANKSBACK: 'No problem',
+    GOODBYE: 'See you next time!',
+    WHOAMI: 'I am a voice assistant with basic abilities, such as note management. I can also tell you the time. Some day I will be able to do a lot more!',
+    basiccases: {
+        greeting: /(Hello|Greetings|^Hi|Howdy)/i,
+        howru: /How are you/i,
+        thankyou: /Thank(s| you)/i,
+        bye: /((Good )?bye|Later$)/i,
+        whoareyou: /(Who|What)( the ....)? are you/i
     }
 }
