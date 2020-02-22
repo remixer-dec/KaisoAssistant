@@ -1,0 +1,43 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #000;
+    touch-action: manipulation;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#charicon {
+    background: #00796B;
+    color: #fff;
+    font-size: 26vh;
+    overflow: hidden;
+    border-radius: 50%;
+    height: 2.4em;
+    width: 2.4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+#speechText {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    color: #fff;
+    margin: 10px 0;
+    font-size: 14px;
+    font-family: sans-serif;
+}
